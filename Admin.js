@@ -52,8 +52,8 @@ Game.command("kick", (caller, args) => {
     if (Admins.includes(caller.username)) {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
-                 player.kick(`You were kicked by ${caller.username}`)
-                 return
+                player.kick(`You were kicked by ${caller.username}`)
+                return
             }
 
         }
@@ -71,7 +71,7 @@ Game.command("ban", (caller, args) => {
                 player.kick("banned")
                 BannedUsers.push(player)
                 return
-                
+
             }
         }
     }
@@ -80,21 +80,21 @@ Game.command("ban", (caller, args) => {
 
 
 Game.on("playerJoin", (player) => {
-    if (BannedUsers.includes(player.username)){
+    if (BannedUsers.includes(player.username)) {
         return player.kick("You're banned")
-        
-        
+
+
 
 
     }
- })
+})
 
- Game.on("playerJoin", (player) => {
-    if (Admins.includes(player.username)){
+Game.on("playerJoin", (player) => {
+    if (Admins.includes(player.username)) {
         console.log("Admin has joined wow")
         player.topPrint(`Welcome ${player.username} You're an administrator.`)
-        return 
+        return
 
     }
- })
+})
 
