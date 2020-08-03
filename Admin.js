@@ -91,7 +91,7 @@ Game.command("commands", (caller, args) => {
 })
 
 Game.command("admin", (caller, args) => {
-    if (Admin.includes(caller.username)) {
+    if (Admins.includes(caller.username)) {
         if (caller.username == args) return caller.topPrint("You cant admin yourself again lol.")
         caller.topPrint(`User ${args} is now an Administrator.`, 5)
         return Admin(args.username)
@@ -100,7 +100,7 @@ Game.command("admin", (caller, args) => {
 
 })
 Game.command("unadmin", (caller, args) => {
-    if (Admin.includes(caller.username)) {
+    if (Admins.includes(caller.username)) {
         if (caller.username == args) return caller.topPrint("You cant unadmin yourself.")
         caller.topPrint(`User ${args} is no longer an administrator.`, 5)
         return UnAdmin(args)
@@ -110,23 +110,23 @@ Game.command("unadmin", (caller, args) => {
 })
 
 Game.command("m", (caller, args) => {
-    if (Admin.includes(caller.username)) {
-        Game.topPrintAll(`${args}`)
+    if (Admins.includes(caller.username)) {
+        Game.topPrintAll(`${args}`, 5)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
 })
 Game.command("n", (caller, args) => {
-    if (Admin.includes(caller.username)) {
-        Game.centerPrintAll(`${args}`)
+    if (Admins.includes(caller.username)) {
+        Game.centerPrintAll(`${args}`, 5)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
 })
 
 Game.command("b", (caller, args) => {
-    if (Admin.includes(caller.username)) {
-        Game.bottomPrintAll(`${args}`)
+    if (Admins.includes(caller.username)) {
+        Game.bottomPrintAll(`${args}`, 5)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
@@ -148,8 +148,8 @@ Game.command("to", (caller, args) => {
 Game.command("bring", (caller, args) => {
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
-        if (P == undefined || P == " ") return caller.bottomPrint("Player not found",3)
-        if (P.username == caller.username) return caller.topPrint("You cant Bring yourself!",3)
+        if (P == undefined || P == " ") return caller.bottomPrint("Player not found", 3)
+        if (P.username == caller.username) return caller.topPrint("You cant Bring yourself!", 3)
         else {
             caller.topPrint(`Bringing Player ${P.username}`, 5)
             CallerPos = caller.position;
