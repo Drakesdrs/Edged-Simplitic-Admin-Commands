@@ -104,7 +104,7 @@ Game.command("unadmin", (caller, args) => {
 Game.command("to", (caller, args) => {
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
-        if (!P) return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`,3)
+        if (P == undefined || P == " ") return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`, 3)
         caller.topPrint(`Teleporting to ${P.username}`, 3);
         CallerPos = caller.position;
         caller.setPosition(new Vector3(P.position.x, P.position.y, P.position.z)) //Offsets work for god sake
@@ -112,14 +112,14 @@ Game.command("to", (caller, args) => {
 
 })
 
-Game.command("bring", (caller, args)=>{
-    if (Admins.includes(caller.username)){
+Game.command("bring", (caller, args) => {
+    if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
-        if (!P) return caller.bottomPrint("Player not found")
+        if (P == undefined || P == " ") return caller.bottomPrint("Player not found")
         else {
-            caller.topPrint(`Bringing Player ${P.username}`,5)
+            caller.topPrint(`Bringing Player ${P.username}`, 5)
             CallerPos = caller.position;
-            P.setPosition(new Vector3(CallerPos.x,CallerPos.y,CallerPos.z))
+            P.setPosition(new Vector3(CallerPos.x, CallerPos.y, CallerPos.z))
 
         }
 
@@ -137,11 +137,12 @@ Game.command("ban", (caller, args) => {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
 
-                if (!player) return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`)
-
-                player.kick(`You've been banned by ${caller.username}`)
-                caller.topPrint(`Banned user ${player.username}.`, 5)
-                return BannedUsers.push(player)
+                if (player == undefined || player == " ") return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`)
+                else {
+                    player.kick(`You've been banned by ${caller.username}`)
+                    caller.topPrint(`Banned user ${player.username}.`, 5)
+                    return BannedUsers.push(player)
+                }
 
             }
 
@@ -158,7 +159,6 @@ Game.command("unban", (caller, args) => {
             return caller.topPrint(`User ${args} is now Unbanned!`, 5)
 
         }
-        else return caller.topPrint(`No user with the name ${args} was found. Make sure to type all their name.`)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
