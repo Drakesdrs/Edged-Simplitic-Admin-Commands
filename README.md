@@ -1,7 +1,3 @@
-# Infinite-Yield-JS
-Based on true epicness
+# Edged Simplistic Admin commands.
 
-
-Usage is on the file 
-
-- Edge.
+A simple but effective admin commands.
