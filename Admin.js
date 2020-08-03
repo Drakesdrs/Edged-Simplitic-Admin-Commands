@@ -1,4 +1,3 @@
-const { pickSpawn } = require("node-hill/dist/scripts")
 
 Admins = ["Edge.", "simulated_1", "Player1"] // put here random users for admin lol
 BannedUsers = []
