@@ -1,7 +1,18 @@
-Admins = ["Edge.", "simulated_1"] // put here random users for admin lol
+Admins = ["Edge.", "simulated_1", "Player1"] // put here random users for admin lol
+BannedUsers = []
+
+function getPlayer(name) {
+    //totally not copied from cheats admin v2 because it works.
+    for (let player of Game.players) {
+        if (player.username.toLowerCase().indexOf(String(name).toLowerCase()) == 0) {
+            const victim = Array.from(Game.players).find(p => p.username === player.username)
+            return victim
+        }
+    }
+}
 
 
-console.log(isInArray); // true
+
 function removeA(arr) {
     var what, a = arguments, L = a.length, ax;
     while (L > 1 && arr.length) {
@@ -52,25 +63,50 @@ Game.command("kick", (caller, args) => {
     if (Admins.includes(caller.username)) {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
-                player.kick(`You were kicked by ${caller.username}`)
-                return
+                return player.kick(`You were kicked by ${caller.username}`)
+                
             }
 
         }
     }
 })
 
+
+let Help = `Help Commands!
+/ban Player || Bans the user from the server.
+/kick Player || Kicks the player from the server.
+/to Player || Teleports yourself to the player position
+
+Made by Edged. More Coming Soon.
+`
+
+// Teleport Command ez ez ez 
+Game.command("help", (caller, args)=>{
+    if (Admins.includes(caller.username)){
+        console.log(``)
+
+    }
+})
+Game.command("to", (caller, args) => {
+    if (Admins.includes(caller.username)){
+    P = getPlayer(args);
+    caller.topPrint(`Teleporting ${P.username}`);
+    CallerPos = caller.position;
+    caller.setPosition(new Vector3(P.position.x, P.position.y, P.position.z)) //Offsets work for god sake
+    }
+    
+})
+
 // Ban Command
 
-BannedUsers = []
 
 Game.command("ban", (caller, args) => {
     if (Admins.includes(caller.username)) {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
-                player.kick("banned")
-                BannedUsers.push(player)
-                return
+                player.kick(`You've been banned by ${caller.username}`)
+               
+                return BannedUsers.push(player)
 
             }
         }
@@ -91,9 +127,9 @@ Game.on("playerJoin", (player) => {
 
 Game.on("playerJoin", (player) => {
     if (Admins.includes(player.username)) {
-        console.log("Admin has joined wow")
-        player.topPrint(`Welcome ${player.username} You're an administrator.`)
-        return
+        
+        return player.topPrint(`Welcome ${player.username} You're an administrator.`)
+        
 
     }
 })
