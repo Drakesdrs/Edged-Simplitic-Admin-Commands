@@ -80,21 +80,23 @@ Made by Edged. More Coming Soon.
 // Teleport Command ez ez ez 
 Game.command("commands", (caller, args) => {
     if (Admins.includes(caller.username)) {
-        console.log(`${Help}`)
+        caller.message(Help)
 
     }
 })
 
 Game.command("admin", (caller, args) => {
     if (Admin.includes(caller.username)) {
-        Admin(args.username)
+        caller.topPrint(`User ${args} is now an Administrator.`)
+        return Admin(args.username)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
 
 })
 Game.command("unadmin", (caller, args) => {
     if (Admin.includes(caller.username)) {
-        UnAdmin(args.username)
+        caller.topPrint(`User ${args} is no longer an administrator.`)
+        return UnAdmin(args.username)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
 
@@ -102,7 +104,7 @@ Game.command("unadmin", (caller, args) => {
 Game.command("to", (caller, args) => {
     if (Admins.includes(caller.username)) {
         P = getPlayer(args);
-        caller.topPrint(`Teleporting ${P.username}`);
+        caller.topPrint(`Teleporting to ${P.username}`);
         CallerPos = caller.position;
         caller.setPosition(new Vector3(P.position.x, P.position.y, P.position.z)) //Offsets work for god sake
     }
@@ -117,7 +119,7 @@ Game.command("ban", (caller, args) => {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
                 player.kick(`You've been banned by ${caller.username}`)
-
+                caller.topPrint(`Banned user ${player.username}.`)
                 return BannedUsers.push(player)
 
             }
@@ -125,6 +127,15 @@ Game.command("ban", (caller, args) => {
         }
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
+
+})
+
+Game.command("unban", (caller, args) => {
+    if (Admins.includes(caller.username)) {
+        removeA(args)
+        return caller.topPrint(`User ${args} is now Unbanned!`)
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
 })
 
