@@ -93,7 +93,8 @@ Game.command("commands", (caller, args) => {
 Game.command("admin", (caller, args) => {
     if (Admins.includes(caller.username)) {
         if (caller.username == args) return caller.topPrint("You cant admin yourself again lol.")
-        caller.topPrint(`User ${args} is now an Administrator.`, 5)
+        let P = getPlayer(args)
+        caller.topPrint(`User ${args.username} is now an Administrator.`, 5)
         return Admin(args.username)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
@@ -102,8 +103,9 @@ Game.command("admin", (caller, args) => {
 Game.command("unadmin", (caller, args) => {
     if (Admins.includes(caller.username)) {
         if (caller.username == args) return caller.topPrint("You cant unadmin yourself.")
-        caller.topPrint(`User ${args} is no longer an administrator.`, 5)
-        return UnAdmin(args)
+        let P = getPlayer(args)
+        caller.topPrint(`User ${args.username} is no longer an administrator.`, 5)
+        return UnAdmin(args.username)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
