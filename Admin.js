@@ -109,6 +109,30 @@ Game.command("unadmin", (caller, args) => {
 
 })
 
+Game.command("m", (caller, args) => {
+    if (Admin.includes(caller.username)) {
+        Game.topPrintAll(`${args}`)
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
+
+})
+Game.command("n", (caller, args) => {
+    if (Admin.includes(caller.username)) {
+        Game.centerPrintAll(`${args}`)
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
+
+})
+
+Game.command("b", (caller, args) => {
+    if (Admin.includes(caller.username)) {
+        Game.bottomPrintAll(`${args}`)
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
+
+})
+
+
 // Here i let the player go to himself cuz well i mean not much bothering.
 Game.command("to", (caller, args) => {
     if (Admins.includes(caller.username)) {
