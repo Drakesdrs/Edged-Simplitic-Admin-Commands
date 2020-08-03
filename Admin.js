@@ -78,13 +78,29 @@ let Help = `Help Commands!\n
 Made by Edged. More Coming Soon.
 `
 
-// Teleport Command ez ez ez 
+
+
+
+
 Game.command("commands", (caller, args) => {
     if (Admins.includes(caller.username)) {
         console.log(Help)
 
     }
 })
+
+Game.command("change", (caller, args) => {
+    if (Admins.includes(caller.username)) {
+        args = args.split(" ")
+        let P = getPlayer(args[0])
+        console.log(caller.username+ " is changing "+  args[0]+ " Score to "+ args[1])
+        return P.setScore(args[1])
+
+
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5);
+})
+
 
 Game.command("admin", (caller, args) => {
     if (Admins.includes(caller.username)) {
@@ -131,7 +147,7 @@ Game.command("b", (caller, args) => {
 })
 
 
-// Here i let the player go to himself cuz well i mean not much bothering.
+// Teleport Command ez ez ez 
 Game.command("to", (caller, args) => {
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
@@ -165,9 +181,10 @@ Game.command("bring", (caller, args) => {
 
 
 Game.command("ban", (caller, args) => {
-
+    
     if (Admins.includes(caller.username)) {
-        let P = getPlayer(args)
+        args = args.split(" ")
+        let P = getPlayer(args[0])
 
         if (caller.username == P.username) {
             return caller.topPrint("You cant ban yourself!")
@@ -175,7 +192,7 @@ Game.command("ban", (caller, args) => {
         else {
             caller.topPrint(`Banning user ${P}...`, 3)
             BannedUsers.push(P.username)
-            P.kick(`You've been banned by ${caller.username}`)
+            P.kick(`You've been banned by ${caller.username}\nReason of Ban: ${args[1]} `)
         }
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
