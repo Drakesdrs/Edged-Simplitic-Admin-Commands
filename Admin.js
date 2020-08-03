@@ -44,7 +44,7 @@ function CheckAdmin(User) {
 
 }
 
-CheckAdmin("Talveka")
+CheckAdmin("Spacebuilder")
 
 // Commands:
 
@@ -63,7 +63,7 @@ Game.command("kick", (caller, args) => {
     if (Admins.includes(caller.username)) {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
-                return player.kick(`You were kicked by ${caller.username}`, 5)
+                return player.kick(`You were kicked unfortunately kicked ${caller.username}`, 5)
 
             }
 
@@ -79,7 +79,8 @@ let Help = `Help Commands!\n
 /kick Player || Kicks the player from the server.\n
 /to Player || Teleports yourself to the player position\n
 \n
-Made by Edged. More Coming Soon.
+Made by Edge. More Coming Soon. To edit source code go to 
+https://github.com/Core-commits/Edged-Simplitic-Admin-Commands
 `
 
 // Teleport Command ez ez ez 
@@ -92,7 +93,7 @@ Game.command("commands", (caller, args) => {
 
 Game.command("admin", (caller, args) => {
     if (Admin.includes(caller.username)) {
-        if (caller.username == args) return caller.topPrint("You cant admin yourself again lol.")
+        if (caller.username == args) return caller.topPrint("A wise man once told me you cannot give yourelf admin 2 times.")
         caller.topPrint(`User ${args} is now an Administrator.`, 5)
         return Admin(args.username)
     }
@@ -101,8 +102,8 @@ Game.command("admin", (caller, args) => {
 })
 Game.command("unadmin", (caller, args) => {
     if (Admin.includes(caller.username)) {
-        if (caller.username == args) return caller.topPrint("You cant unadmin yourself.")
-        caller.topPrint(`User ${args} is no longer an administrator.`, 5)
+        if (caller.username == args) return caller.topPrint("Nice try bud, You cannot remove admin.")
+        caller.topPrint(`User ${args} is no longer an administrator, please contact an Administrator.`, 5)
         return UnAdmin(args)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
@@ -124,8 +125,8 @@ Game.command("to", (caller, args) => {
 Game.command("bring", (caller, args) => {
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
-        if (P == undefined || P == " ") return caller.bottomPrint("Player not found",3)
-        if (P.username == caller.username) return caller.topPrint("You cant Bring yourself!",3)
+        if (P == undefined || P == " ") return caller.bottomPrint("Player not found.",3)
+        if (P.username == caller.username) return caller.topPrint("Command not executed: You cant Bring yourself!",3)
         else {
             caller.topPrint(`Bringing Player ${P.username}`, 5)
             CallerPos = caller.position;
@@ -148,14 +149,14 @@ Game.command("ban", (caller, args) => {
         let P = getPlayer(args)
 
         if (caller.username == P.username) {
-            return caller.topPrint("You can ban yourself!")
+            return caller.topPrint("Command not executed: you cannot ban yourself!")
         }
         else {
             caller.topPrint(`Banning user ${P}...`, 3)
-            P.kick(`You've been banned by ${caller.username}`)
+            P.kick(`You've been banned by Mr. ${caller.username}`)
         }
     }
-    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
+    else return caller.topPrint("You do not have permission to use this command, Missing privileges: Administrator", 5)
 
 })
 
@@ -174,14 +175,14 @@ Game.command("unban", (caller, args) => {
 
 Game.on("playerJoin", (player) => {
     if (BannedUsers.includes(player.username)) {
-        return player.kick("You're banned")
+        return player.kick("You have been banned get a life kiddo")
     }
 })
 
 Game.on("playerJoin", (player) => {
     if (Admins.includes(player.username)) {
         player.on("avatarLoaded", () => {
-            return player.topPrint(`Welcome ${player.username} You're an administrator.`, 10)
+            return player.topPrint(`Howdy${player.username} You have been giving operator status.`, 10)
 
             // The outfit is now loaded.
         })
