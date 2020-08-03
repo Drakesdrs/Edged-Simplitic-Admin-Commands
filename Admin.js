@@ -49,11 +49,6 @@ function Admin(user) {
 function UnAdmin(user) {
     removeA(Admins, user)
 }
-console.log(Admins + " Are the current administrators")
-Admin("IDK!")
-console.log(Admins + " Are now the administrators")
-UnAdmin("IDK!")
-console.log(`${Admins} Are now the admins`)
 
 
 
@@ -64,11 +59,13 @@ Game.command("kick", (caller, args) => {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
                 return player.kick(`You were kicked by ${caller.username}`)
-                
+
             }
 
         }
     }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
+
 })
 
 
@@ -81,20 +78,35 @@ Made by Edged. More Coming Soon.
 `
 
 // Teleport Command ez ez ez 
-Game.command("help", (caller, args)=>{
-    if (Admins.includes(caller.username)){
-        console.log(``)
+Game.command("commands", (caller, args) => {
+    if (Admins.includes(caller.username)) {
+        console.log(`${Help}`)
 
     }
 })
-Game.command("to", (caller, args) => {
-    if (Admins.includes(caller.username)){
-    P = getPlayer(args);
-    caller.topPrint(`Teleporting ${P.username}`);
-    CallerPos = caller.position;
-    caller.setPosition(new Vector3(P.position.x, P.position.y, P.position.z)) //Offsets work for god sake
+
+Game.command("admin", (caller, args) => {
+    if (Admin.includes(caller.username)) {
+        Admin(args.username)
     }
-    
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
+
+})
+Game.command("unadmin", (caller, args) => {
+    if (Admin.includes(caller.username)) {
+        UnAdmin(args.username)
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
+
+})
+Game.command("to", (caller, args) => {
+    if (Admins.includes(caller.username)) {
+        P = getPlayer(args);
+        caller.topPrint(`Teleporting ${P.username}`);
+        CallerPos = caller.position;
+        caller.setPosition(new Vector3(P.position.x, P.position.y, P.position.z)) //Offsets work for god sake
+    }
+
 })
 
 // Ban Command
@@ -105,12 +117,14 @@ Game.command("ban", (caller, args) => {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
                 player.kick(`You've been banned by ${caller.username}`)
-               
+
                 return BannedUsers.push(player)
 
             }
+
         }
     }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator")
 
 })
 
@@ -127,9 +141,12 @@ Game.on("playerJoin", (player) => {
 
 Game.on("playerJoin", (player) => {
     if (Admins.includes(player.username)) {
-        
-        return player.topPrint(`Welcome ${player.username} You're an administrator.`)
-        
+        player.on("avatarLoaded", () => {
+            return player.topPrint(`Welcome ${player.username} You're an administrator.`)
+
+            // The outfit is now loaded.
+        })
+
 
     }
 })
