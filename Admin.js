@@ -1,6 +1,11 @@
 Admins = ["Edge.", "simulated_1", "Player1"] // put here random users for admin lol
 BannedUsers = []
 
+Game.setMaxListeners(50) // Important to avoid future memory leaks
+
+
+// Giving more memory
+
 function getPlayer(name) {
     //totally not copied from cheats admin v2 because it works.
     for (let player of Game.players) {
@@ -87,6 +92,7 @@ Game.command("commands", (caller, args) => {
 
 Game.command("admin", (caller, args) => {
     if (Admin.includes(caller.username)) {
+        if (caller.username == args) return caller.topPrint("You cant admin yourself again lol.")
         caller.topPrint(`User ${args} is now an Administrator.`, 5)
         return Admin(args.username)
     }
@@ -95,12 +101,15 @@ Game.command("admin", (caller, args) => {
 })
 Game.command("unadmin", (caller, args) => {
     if (Admin.includes(caller.username)) {
+        if (caller.username == args) return caller.topPrint("You cant unadmin yourself.")
         caller.topPrint(`User ${args} is no longer an administrator.`, 5)
-        return UnAdmin(args.username)
+        return UnAdmin(args)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
 })
+
+// Here i let the player go to himself cuz well i mean not much bothering.
 Game.command("to", (caller, args) => {
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
@@ -115,7 +124,8 @@ Game.command("to", (caller, args) => {
 Game.command("bring", (caller, args) => {
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
-        if (P == undefined || P == " ") return caller.bottomPrint("Player not found")
+        if (P == undefined || P == " ") return caller.bottomPrint("Player not found",3)
+        if (P.username == caller.username) return caller.topPrint("You cant Bring yourself!",3)
         else {
             caller.topPrint(`Bringing Player ${P.username}`, 5)
             CallerPos = caller.position;
@@ -133,19 +143,16 @@ Game.command("bring", (caller, args) => {
 
 
 Game.command("ban", (caller, args) => {
+
     if (Admins.includes(caller.username)) {
-        for (let player of Game.players) {
-            if (player.username.startsWith(args)) {
+        let P = getPlayer(args)
 
-                if (player == undefined || player == " ") return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`)
-                else {
-                    player.kick(`You've been banned by ${caller.username}`)
-                    caller.topPrint(`Banned user ${player.username}.`, 5)
-                    return BannedUsers.push(player)
-                }
-
-            }
-
+        if (caller.username == P.username) {
+            return caller.topPrint("You can ban yourself!")
+        }
+        else {
+            caller.topPrint(`Banning user ${P}...`, 3)
+            P.kick(`You've been banned by ${caller.username}`)
         }
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
