@@ -80,7 +80,7 @@ Made by Edged. More Coming Soon.
 // Teleport Command ez ez ez 
 Game.command("commands", (caller, args) => {
     if (Admins.includes(caller.username)) {
-        caller.message(Help)
+        console.log(Help)
 
     }
 })
@@ -103,15 +103,32 @@ Game.command("unadmin", (caller, args) => {
 })
 Game.command("to", (caller, args) => {
     if (Admins.includes(caller.username)) {
-        P = getPlayer(args);
-        if (!P) return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`)
-        caller.topPrint(`Teleporting to ${P.username}`);
+        let P = getPlayer(args);
+        if (!P) return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`,3)
+        caller.topPrint(`Teleporting to ${P.username}`, 3);
         CallerPos = caller.position;
         caller.setPosition(new Vector3(P.position.x, P.position.y, P.position.z)) //Offsets work for god sake
     }
 
 })
 
+Game.command("bring", (caller, args)=>{
+    if (Admins.includes(caller.username)){
+        let P = getPlayer(args);
+        if (!P) return caller.bottomPrint("Player not found")
+        else {
+            caller.topPrint(`Bringing Player ${P.username}`,5)
+            CallerPos = caller.position;
+            P.setPosition(new Vector3(CallerPos.x,CallerPos.y,CallerPos.z))
+
+        }
+
+    }
+    else {
+        return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
+    }
+
+})
 // Ban Command
 
 
