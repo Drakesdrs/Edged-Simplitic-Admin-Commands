@@ -1,3 +1,5 @@
+const { pickSpawn } = require("node-hill/dist/scripts")
+
 Admins = ["Edge.", "simulated_1", "Player1"] // put here random users for admin lol
 BannedUsers = []
 
@@ -48,12 +50,7 @@ CheckAdmin("Talveka")
 
 // Commands:
 
-function Admin(user) {
-    Admins.push(user)
-}
-function UnAdmin(user) {
-    removeA(Admins, user)
-}
+
 
 
 
@@ -95,7 +92,7 @@ Game.command("admin", (caller, args) => {
         if (caller.username == args) return caller.topPrint("You cant admin yourself again lol.")
         let P = getPlayer(args)
         caller.topPrint(`User ${args.username} is now an Administrator.`, 5)
-        return Admin(args.username)
+        return Admins.push(args.username)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
@@ -105,7 +102,7 @@ Game.command("unadmin", (caller, args) => {
         if (caller.username == args) return caller.topPrint("You cant unadmin yourself.")
         let P = getPlayer(args)
         caller.topPrint(`User ${args.username} is no longer an administrator.`, 5)
-        return UnAdmin(args.username)
+        return Admins.push(args.username)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
@@ -174,10 +171,11 @@ Game.command("ban", (caller, args) => {
         let P = getPlayer(args)
 
         if (caller.username == P.username) {
-            return caller.topPrint("You can ban yourself!")
+            return caller.topPrint("You cant ban yourself!")
         }
         else {
             caller.topPrint(`Banning user ${P}...`, 3)
+            BannedUsers.push(P.username)
             P.kick(`You've been banned by ${caller.username}`)
         }
     }
