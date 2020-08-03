@@ -119,7 +119,7 @@ Game.command("ban", (caller, args) => {
     if (Admins.includes(caller.username)) {
         for (let player of Game.players) {
             if (player.username.startsWith(args)) {
-            
+
                 if (!player) return caller.bottomPrint(`Player with the username key ${args} was not found on the server! Please try again.`)
 
                 player.kick(`You've been banned by ${caller.username}`)
@@ -136,12 +136,12 @@ Game.command("ban", (caller, args) => {
 
 Game.command("unban", (caller, args) => {
     if (Admins.includes(caller.username)) {
-        if (BannedUsers.includes(args)){
-        removeA(args)
-        return caller.topPrint(`User ${args} is now Unbanned!`, 5)
+        if (BannedUsers.includes(args)) {
+            removeA(args)
+            return caller.topPrint(`User ${args} is now Unbanned!`, 5)
 
-    }
-    else return caller.topPrint(`No user with the name ${args} was found. Make sure to type all their name.`)
+        }
+        else return caller.topPrint(`No user with the name ${args} was found. Make sure to type all their name.`)
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
 
