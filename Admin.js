@@ -94,9 +94,15 @@ Game.command("setavatar", (p, m) => {
     p.topPrint(`User: ${p.username} avatar is now ${m}`)
 
 })
+Game.command("setavatar", (p, m) => {
+    p.setAvatar(m)
+    p.topPrint(`User: ${p.username} avatar is now ${m}`)
+
+})
+
 Game.command("edge", (p, m) => {
     p.setAvatar(m)
-    p.topPrint(`Current Admin Version: ${Ver}\nDeveloper: ${Developer}\nThanks for using Edged Admin Commands!`)
+    p.prompt(`Current Admin Version: ${Ver}\nDeveloper: ${Developer}\nThanks for using Edged Admin Commands!`)
 
 })
 
@@ -180,6 +186,17 @@ Game.command("change", (caller, args) => {
         console.log(caller.username + " is changing " + args[0] + " Score to " + args[1])
         return P.setScore(args[1])
 
+
+    }
+    else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5);
+})
+
+
+Game.command("alertall", (caller, args) => {
+    if (Admins.includes(caller.username)) {
+        for(let P of game.players){
+            P.prompt(args)
+        }
 
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5);
@@ -343,7 +360,7 @@ Game.command("shutdown", (caller, args) => {
     if (Admins.includes(caller.username)) {
         for (let P of game.Players){
         P.kick(`Server Shutdown by ${caller.username}`)
-        Game.shutdown()
+        game.shutdown()
       }
     }
     else return caller.topPrint("You cant run that command! Missing privileges: Administrator", 5)
