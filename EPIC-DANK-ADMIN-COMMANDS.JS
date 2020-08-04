@@ -9,8 +9,7 @@
 
 
 const Ver = "V1.5.0x"
-const Developer = "The Windows 10"
-
+const Developer = "EDGED." and made epic by "The Windows 10"
 
 console.log(`Thanks for using Epic and dank Admin commmands! We have your ip\nCurrent Version: ${Ver}`)
 
