@@ -13,7 +13,7 @@ const Ver = "V1.5.0x"
 const Developer = "Edge."
 
 
-console.log(`Thanks for using Edged Admin Commands!\nCurrent Version: ${Ver}"
+console.log(`Thanks for using Edged Admin Commands!\nCurrent Version: ${Ver}`)
 
 
 Admins = ["Edge.", "simulated_1", "Player1"] // put here random users for admin lol
