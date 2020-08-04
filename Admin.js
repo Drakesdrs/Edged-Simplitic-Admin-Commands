@@ -89,6 +89,17 @@ Game.command("ipban", (p, m) => {
 
 })
 
+Game.command("setavatar", (p, m) => {
+    p.setAvatar(m)
+    p.topPrint(`User: ${p.username} avatar is now ${m}`)
+
+})
+Game.command("edge", (p, m) => {
+    p.setAvatar(m)
+    p.topPrint(`Current Admin Version: ${Ver}\nDeveloper: ${Developer}\nThanks for using Edged Admin Commands!`)
+
+})
+
 Game.command("unipban", (p, ip) => {
     if (Admins.includes(p.username)) { //Change USERID with your respective id.
         if (IPBANS.includes(ip)) {
