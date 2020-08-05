@@ -304,7 +304,7 @@ Game.command("bring", (caller, args) => {
       }
     if (Admins.includes(caller.username)) {
         let P = getPlayer(args);
-        if (P == undefined || P == " ") return caller.bottomPrint("Player not found", 3)
+        if (P == undefined || P == " ") return caller.bottomPrint("Hes not in the server his body was never found", 3)
 
         }
         if (P.username == caller.username) return caller.topPrint("You really think you can bring yourself to yourself", 3)
